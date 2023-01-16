@@ -1,0 +1,18 @@
+.header{
+    height: 80px;
+    background-color: #1C2B35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+.link{
+    text-decoration: none;
+    color: #ffffff;
+    padding-left: 32px;
+    font-size: 17px;
+}
+
+.link:hover{
+    color: orange;
+}
