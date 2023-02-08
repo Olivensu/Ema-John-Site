@@ -3,3 +3,9 @@
     top: 0;
     padding: 30px 20px;
 }
+
+button{
+    background-color: #CDE990;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
