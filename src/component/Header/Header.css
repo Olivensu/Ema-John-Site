@@ -17,3 +17,7 @@
 .link:hover{
     color: orange;
 }
+
+.signOut{
+    margin-left: 20px;
+}

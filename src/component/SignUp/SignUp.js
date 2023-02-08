@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
-    const [password, setPasword] = useState('');
+    const [password, setPassword] = useState('');
     const [ confirmPassword, setConfirmPassword] = useState('');
     const [ error, setError] = useState('');
+    const navigate = useNavigate()
+
+    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth)
 
     const handleEmailBlur =  (e)=>{
         setEmail(e.target.value);
     }  
     const handlePasswordBlur =  (e)=>{
-        setPasword(e.target.value);
+        setPassword(e.target.value);
     }  
     const handleConfirmPasswordBlur =  (e)=>{
         setConfirmPassword(e.target.value);
@@ -21,12 +26,21 @@ const SignUp = () => {
         setError(e.target.value);
     }  
 
+    if(user){
+        navigate('/shop')
+    }
+
     const handleCreateUser =(e)=>{
         e.preventDefault();
         if(password !== confirmPassword){
             setError('Your two passwords do not match')
             return;
         }
+        if(password.length<6){
+            setError('Password must be at least 6 characters');
+            return;
+        }
+        createUserWithEmailAndPassword(email, password);
     }
     return (
         <div>
@@ -47,10 +61,10 @@ const SignUp = () => {
                     <input onBlur={handleConfirmPasswordBlur} type="password" name="" id=""  required/>
                 </div>
                 <p style={{color: 'red'}}>{error}</p>
-                <input className='form-submit' type="submit" value='Sign Up' />
+                <input  className='form-submit' type="submit" value='Sign Up' />
                 </form>
                 <p>
-                    ALready have an account? <Link className='form-Link' to='/SignUp'>Login</Link>
+                    ALready have an account? <Link className='form-Link' to='/login'>Login</Link>
                 </p>
                 <div className='or-div'>
                     <hr />
